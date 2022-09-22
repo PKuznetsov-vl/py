@@ -1,4 +1,6 @@
 import json
+import os
+
 import PySAM.Pvwattsv8 as PVWatts
 import PySAM.Grid as Grid
 import PySAM.Utilityrate5 as UtilityRate
@@ -15,14 +17,17 @@ cl = Single.from_existing(pv)
 
 
 if __name__ == '__main__':
-    print('tst')
-    # dir = "./jsons"
-    file_names = ["untitled_1_battery", "untitled_1_grid", "untitled_1_utilityrate5", "untitled_1_thermalrate"]
+
+    jsons_path = "/home/pavel/Документы/py/jsons"
+    file_names = [f for f in os.listdir(jsons_path)
+                  if os.path.isfile(os.path.join(jsons_path, f))]
+    print(file_names)
+    #file_names = ["untitled_1_battery", "untitled_1_grid", "untitled_1_utilityrate5", "untitled_1_thermalrate"]
     modules = [pv, grid, ur, cl]
 
     for f, m in zip(file_names, modules):
-        print('try')
-        with open(dir + f + ".json", 'r') as file:
+
+        with open(jsons_path+"/" + f , 'r') as file:
             data = json.load(file)
             for k, v in data.items():
                 if k != "number_inputs":
