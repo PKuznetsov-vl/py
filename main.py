@@ -13,21 +13,21 @@ import PySAM.Singleowner as Single
 pv = PVWatts.new()
 grid = Grid.from_existing(pv)
 ur = UtilityRate.from_existing(pv)
-cl = Single.from_existing(pv)
+cl = ThermalRate.from_existing(pv)
 
 
 if __name__ == '__main__':
 
-    jsons_path = "/home/pavel/Документы/py/jsons"
+    jsons_path = "/home/pavel/Документы/py/jsons/"
     file_names = [f for f in os.listdir(jsons_path)
                   if os.path.isfile(os.path.join(jsons_path, f))]
     print(file_names)
-    #file_names = ["untitled_1_battery", "untitled_1_grid", "untitled_1_utilityrate5", "untitled_1_thermalrate"]
+    file_names = ["untitled__1__pvwattsv8.json", "untitled__1__grid.json", "untitled__1__utilityrate5.json", "untitled__1__thermalrate.json"]
     modules = [pv, grid, ur, cl]
 
     for f, m in zip(file_names, modules):
 
-        with open(jsons_path+"/" + f , 'r') as file:
+        with open(jsons_path+ f , 'r') as file:
             data = json.load(file)
             for k, v in data.items():
                 if k != "number_inputs":
